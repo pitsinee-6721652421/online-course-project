@@ -1,0 +1,101 @@
+body {
+    background-color: #fffdf5;
+    font-family: 'Kanit', sans-serif;   display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.login-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.login-card {
+    background: rgb(178, 170, 251);
+    padding: 40px;
+    border-radius: 30px;
+    border: 4px solid #000;
+    box-shadow: 10px 10px 0px #000;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 3px solid #000;
+    border-radius: 15px;
+    box-sizing: border-box; /* สำคัญมาก: กันช่องกรอกทะลุขอบ */
+}
+
+.btn-login {
+    display: block;         
+    width: 100%;             
+    box-sizing: border-box;  
+    background-color: #5ce1e6; 
+    color: #000;
+    padding: 15px;
+    border-radius: 15px;
+    border: 3px solid #000;
+    font-weight: 800;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 4px 4px 0px #000;
+    text-align: center;     
+    text-decoration: none;   
+    transition: all 0.2s;
+    margin-top: 10px;        
+}
+
+/* แถม: เอฟเฟกต์ตอนกดให้ดูปุ่มเด้งๆ */
+.btn-login:active {
+    transform: translate(2px, 2px);
+    box-shadow: 0px 0px 0px #000;
+}
+
+.btn-google {
+    width: 100%;
+    background: white;
+    padding: 10px;
+    border: 3px solid #000;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn-google img {
+    width: 20px; /* คุมรูป Gmail ไม่ให้ใหญ่ยักษ์ */
+}
+
+.divider {
+    margin: 20px 0;
+    border-top: 2px dashed #000;
+    position: relative;
+}
+
+.divider span {
+    position: absolute;
+    top: -12px;
+    left: 40%;
+    background: rgb(244, 237, 237);
+    padding: 0 10px;
+}
