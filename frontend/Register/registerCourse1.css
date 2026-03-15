@@ -11,7 +11,7 @@ body{
 
 /* กล่องฟอร์ม */
 form{
-    background:white;
+    background:rgb(244, 215, 234);
     padding:40px;
     border-radius:10px;
     width:350px;
@@ -29,6 +29,8 @@ h2{
 label{
     font-weight:bold;
     color:#555;
+    display:block;
+    margin-top:10px;
 }
 
 /* ช่องกรอกข้อมูล */
@@ -36,6 +38,7 @@ input{
     width:100%;
     padding:10px;
     margin-top:5px;
+    margin-bottom:15px;
     border:1px solid #ccc;
     border-radius:6px;
     font-size:14px;
@@ -48,14 +51,17 @@ input:focus{
 }
 
 /* ปุ่มสมัคร */
-button{
-    width:100%;
-    padding:12px;
+.btn--register{
+    display:inline-block;     
+    padding:12px 25px;        
     background:#4ddbe0;
     color:white;
     border:none;
-    border-radius:6px;
+    border-radius:8px;
     font-size:16px;
+    font-weight:bold;
+    text-align:center;
+    text-decoration:none;
     cursor:pointer;
 }
 

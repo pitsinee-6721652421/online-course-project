@@ -1,3 +1,4 @@
+/*
 const courses = [
     { id: 1, name: "Web Development" },
     { id: 2, name: "Python Programming" },
@@ -25,3 +26,6 @@ courses.forEach(course => {
 function registerCourse(courseName){
     alert("Registered for " + courseName);
 }
+
+
+*/
