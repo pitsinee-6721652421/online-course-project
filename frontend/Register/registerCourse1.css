@@ -1,0 +1,71 @@
+/* พื้นหลังเว็บ */
+body{
+    font-family: Arial, sans-serif;
+    background:#fffdf5;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    margin:0;
+}
+
+/* กล่องฟอร์ม */
+form{
+    background:rgb(244, 215, 234);
+    padding:40px;
+    border-radius:10px;
+    width:350px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* หัวข้อ */
+h2{
+    text-align:center;
+    margin-bottom:25px;
+    color:#333;
+}
+
+/* label */
+label{
+    font-weight:bold;
+    color:#555;
+    display:block;
+    margin-top:10px;
+}
+
+/* ช่องกรอกข้อมูล */
+input{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:6px;
+    font-size:14px;
+}
+
+/* เมื่อคลิกช่อง input */
+input:focus{
+    border-color:#b00cc6;
+    outline:none;
+}
+
+/* ปุ่มสมัคร */
+.btn--register{
+    display:inline-block;     
+    padding:12px 25px;        
+    background:#4ddbe0;
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    font-weight:bold;
+    text-align:center;
+    text-decoration:none;
+    cursor:pointer;
+}
+
+/* hover ปุ่ม */
+button:hover{
+    background:#5c71e6;
+}

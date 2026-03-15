@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>เริ่มเรียนคอร์ส</title>
+<link rel="stylesheet" href="course.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>คอร์ส A-LEVEL ภาษาอังกฤษ พื้นฐาน</h1>
+
+<!-- progress -->
+<div class="progress-box">
+<p>ความคืบหน้าการเรียน</p>
+<div class="progress-bar">
+<div id="progress"></div>
+</div>
+</div>
+
+<!-- video -->
+<h2>บทที่ 1 </h2>
+
+<div class="video-box">
+<iframe width="560" height="315"
+src="https://www.youtube.com/embed/t_lDSq1CWC4"
+frameborder="0"
+allowfullscreen>
+</iframe>
+</div>
+
+<button onclick="finishLesson()">เรียนจบบทนี้</button>
+
+<hr>
+
+<!-- quiz -->
+<h2>แบบทดสอบ</h2>
+
+<div class="quiz">
+
+<p>1. TOEIC คือการสอบอะไร?</p>
+
+<label><input type="radio" name="q1" value="a"> การสอบภาษาอังกฤษ</label><br>
+<label><input type="radio" name="q1" value="b"> การสอบคณิตศาสตร์</label><br>
+<label><input type="radio" name="q1" value="c"> การสอบวิทยาศาสตร์</label><br>
+
+<br>
+
+<button onclick="checkQuiz()">ส่งคำตอบ</button>
+
+<p id="result"></p>
+
+</div>
+
+</div>
+
+<script src="course.js"></script>
+
+</body>
+</html>

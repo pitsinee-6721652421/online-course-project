@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>เริ่มเรียนคอร์ส</title>
+<link rel="stylesheet" href="course2.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>คอร์ส A-LEVEL คณิตศาสตร์</h1>
+
+<!-- progress -->
+<div class="progress-box">
+<p>ความคืบหน้าการเรียน</p>
+<div class="progress-bar">
+<div id="progress"></div>
+</div>
+</div>
+
+<!-- video -->
+<h2>บทที่ 1 </h2>
+
+<div class="video-box">
+<iframe width="560" height="315"
+src="https://www.youtube.com/embed/UYoaj4CMkVk"
+frameborder="0"
+allowfullscreen>
+</iframe>
+</div>
+
+<button onclick="finishLesson()">เรียนจบบทนี้</button>
+
+<hr>
+
+<!-- quiz -->
+<h2>แบบทดสอบ</h2>
+
+<div class="quiz">
+
+<p>1. คณิตศาสตร์ คือการสอบอะไร?</p>
+
+<label><input type="radio" name="q1" value="a"> 55</label><br>
+<label><input type="radio" name="q1" value="b"> 45</label><br>
+<label><input type="radio" name="q1" value="c"> 56</label><br>
+
+<br>
+
+<button onclick="checkQuiz()">ส่งคำตอบ</button>
+
+<p id="result"></p>
+
+</div>
+
+</div>
+
+<script src="course2.js"></script>
+
+</body>
+</html>
