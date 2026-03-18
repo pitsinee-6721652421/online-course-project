@@ -9,27 +9,31 @@
 <body>
     <div class="login-container"> <div class="login-card">
         <div class="login-header">
-            <h2>ยินดีต้อนรับกลับมา! 🎒</h2>
+            <h2>ยินดีต้อนรับ 🎒</h2>
             <p>พร้อมที่จะเรียนรู้สิ่งใหม่ๆ หรือยัง?</p>
+            <h3>สมัครสมาชิก</h3>
         </div>
+ 
+        <form class="login-form" id="loginForm">
+    <div class="input-group">
+        <label for="username">ชื่อผู้ใช้งาน หรือ อีเมล</label>
+        <input type="text" id="email" placeholder="example@gmail.com" required>
+    </div>
 
-        <form class="login-form">
-            <div class="input-group">
-                <label for="username">ชื่อผู้ใช้งาน หรือ อีเมล</label>
-                <input type="text" id="username" placeholder="example@gmail.com" required>
-            </div>
+    <div class="input-group">
+        <label for="password">รหัสผ่าน</label>
+        <input type="password" id="password" placeholder="••••••••" required>
+    </div>
 
-            <div class="input-group">
-                <label for="password">รหัสผ่าน</label>
-                <input type="password" id="password" placeholder="••••••••" required>
-            </div>
+    <button type="submit" class="btn-login">สมัครสมาชิกเลย! 🚀</button>
+</form>
 
-<a href="index1.htm" class="btn-login" style="text-decoration: none; display: block; text-align: center;">เข้าสู่ระบบเลย! 🚀</a>
-           
+<!--<a href="index1.htm" class="btn-login" style="text-decoration: none; display: block; text-align: center;">เข้าสู่ระบบเลย! 🚀</a>       
+   
+<button type="submit" class="btn-login">เข้าสู่ระบบเลย! 🚀</button> --> 
+    </form>
 
-        </form>
-
-        
+       
         </div>
     
 </div>

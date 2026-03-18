@@ -8,7 +8,7 @@
 
 <body>
 
-<form action="success.html" method="post">
+<form class="course-form">
 
 <h2>สมัครเรียนคอร์ส A-LEVEL ภาษาอังกฤษ พื้นฐาน</h2>
 
@@ -16,14 +16,17 @@
 <input type="text" name="name" required>
 
 <label>Email:</label>
-<input type="email" name="email" required>
+<input type="email" id="email" name="email" required>
 
-<label>เบอร์โทร:</label>
-<input type="text" name="phone">
+<label>Password:</label>
+<input type="password" id="password" name="password" required>
+<!--
+<button type="submit">ยืนยันสมัครเรียน</button>
 
-<!--<button type="submit">ยืนยันสมัครเรียน</button>-->
-<a href="/frontend/study/success.html" class="btn--register">ยืนยันสมัครเรียน</a>
+<a href="/frontend/study/success.html" 
+class="btn--register">ยืนยันสมัครเรียน</a>-->
+<button type="submit" class="btn--register">ยืนยันสมัครเรียน</button>
 </form>
-
+<script src="register.js"></script>
 </body>
-</html>
+</html> 

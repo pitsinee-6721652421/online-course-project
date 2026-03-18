@@ -1,100 +1,193 @@
-const express = require("express");
-const mysql = require("mysql2");
-const cors = require("cors");
-
+const express = require('express');
+const bodyParser = require('body-parser');
+const mysql = require('mysql2/promise');
 const app = express();
+const cors = require('cors');
+const e = require('express');
+const port = 8888;
 
+app.use(bodyParser.json());
 app.use(cors());
-app.use(express.json());
 
+let users = []; 
+let counter = 1;
+let conn = null;
 
-// connect database
-const db = mysql.createConnection({
-    host: "mysql",
-    user: "root",
-    password: "root",
-    database: "weddb"
+// เชื่อมฐานข้อมูล
+const initDBConnection = async () => {
+    conn = await mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: 'root',
+        database: 'weddb',
+        port: 3307
+    });
+}
+// ================= GET USERS =================
+app.get('/users', async (req, res) => {
+    const results = await conn.query('SELECT * FROM user');
+    res.json(results[0]);
 });
 
-db.connect((err)=>{
-    if(err){
-        console.log("Database Error",err);
+const VALIDATE_USER = (username, password) => {
+    let error =[];
+    if (!username ) {
+        error.push("กรุณากรอกอีเมล");
+    }
+    if (!password ) {
+        error.push("กรุณากรอกรหัสผ่าน");
+    }
+    return error;
+}
+app.post('/register', async (req, res) => {
+    const { email, password } = req.body;  // รับข้อมูลจาก ผู้ใช้
+    const errors = VALIDATE_USER(email, password);
+    await conn.query(
+        'INSERT INTO user (email, password) VALUES (?, ?)',
+        [email, password]
+    );
+    res.json({
+        message: "Register success"
+    });
+});
+
+app.post("/login", async (req,res)=>{
+    const { username, password } = req.body;
+    const [rows] = await conn.query(
+        "SELECT * FROM user WHERE email=? AND password=?",
+        [username, password]
+    );
+    if(rows.length > 0){
+        res.json({ message:"Login success" });
     }else{
-        console.log("MySQL Connected");
+        res.json({ message:"Login fail" });
+    }
+
+});
+app.post('/check-user', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        const [results] = await conn.query(
+            'SELECT * FROM users WHERE email = ? AND password = ?',
+            [email, password]
+        );
+
+        if (results.length > 0) {
+            res.json({ message: "User found" });
+        } else {
+            res.status(401).json({ message: "User not found" });
+        }
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: "Server error"
+        });
     }
 });
 
 
-// LOGIN API
-app.post("/login",(req,res)=>{
+// DELETE
+app.delete('/users/:id', async (req, res) => {
+    try {
+        let id = req.params.id;
+        const [results] = await conn.query(
+            'DELETE FROM users WHERE id = ?',
+            [id]
+        );
+        if (results.affectedRows === 0) {
+            return res.status(404).json({
+                message: 'User not found'
+            });
+        }
+        res.json({
+            message: 'User deleted successfully'
+        });
+    } catch (error) {
+        console.error('Error deleting user:', error.message);
 
-const {email,password} = req.body;
+        let statusCode = error.statusCode || 500;
+        res.status(statusCode).json({
+            message: 'Error deleting user',
+            error: error.message
+        });
+    }
+});
+    
 
-const sql = "SELECT * FROM users WHERE email=? AND password=?";
+ const startServer = async () => {
+    try {
+        await initDBConnection();
+        app.listen(port, () => {
+            console.log(`Server running on port ${port}`);
+        });
 
-db.query(sql,[email,password],(err,result)=>{
+    } catch (error) {
+        console.error('Error starting server:', error);
 
-if(err){
-    res.status(500).send(err);
-}
-else if(result.length > 0){
-    res.json({
-        message:"Login success",
-        user:result[0]
-    });
-}
-else{
-    res.status(401).json({
-        message:"Email or Password incorrect"
-    });
-}
+    }
+};
+startServer();      
+/*
+// ================= LOGIN =================//
+app.post('/login', async (req, res) => {
+    try {
 
+        const { username, password } = req.body;
+
+        const results = await conn.query(
+            'SELECT * FROM users WHERE email = ? AND password = ?',
+            [username, password]
+        );
+
+        if (results[0].length === 0) {
+            return res.status(401).json({
+                message: "Email or Password incorrect"
+            });
+        }
+
+        res.json({
+            message: "Login success",
+            user: results[0][0]
+        });
+
+    } catch (error) {
+
+        console.error("Login error:", error);
+
+        res.status(500).json({
+            message: "Server error"
+        });
+
+    }
 });
 
-});
 
 
-// API สมัครเรียน
-app.post("/register",(req,res)=>{
+// ================= CREATE USER =================
+app.post('/users', async (req, res) => {
+    try {
 
-const {name,email,course} = req.body;
+        let user = req.body;
 
-const sql = "INSERT INTO students (name,email,course) VALUES (?,?,?)";
+        const results = await conn.query(
+            'INSERT INTO users SET ?',
+            user
+        );
 
-db.query(sql,[name,email,course],(err,result)=>{
+        res.json({
+            message: 'User created successfully',
+            data: results[0]
+        });
 
-if(err){
-res.status(500).send(err);
-}
-else{
-res.json({
-message:"Register Success",
-id:result.insertId
-});
-}
+    } catch (error) {
 
-});
+        res.status(500).json({
+            message: 'Error creating user'
+        });
 
-});
-
-
-// API ดูรายชื่อ
-app.get("/students",(req,res)=>{
-
-db.query("SELECT * FROM students",(err,result)=>{
-
-if(err){
-res.status(500).send(err);
-}
-else{
-res.json(result);
-}
-
-});
-
-});
-
-
-app.listen(3000,()=>{
-console.log("Server running on port 3000");
-});
+    }
+});  
+ */
+// ================= START SERVER =================
