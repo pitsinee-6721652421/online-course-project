@@ -2,13 +2,12 @@
 <html>
 
 <head>
-<link rel="stylesheet" href="registerCourse2.css">
+<link rel="stylesheet" href="registerCourse3.css">
 </head>
 
 
 <body>
-
-<form action="success.html" method="post">
+<form class="course-form">
 
 <h2>สมัครเรียน A-LEVEL คณิตศาสตร์</h2>
 
@@ -16,14 +15,15 @@
 <input type="text" name="name" required>
 
 <label>Email:</label>
-<input type="email" name="email" required>
+<input type="email" id="email" name="email" required>
 
-<label>เบอร์โทร:</label>
-<input type="text" name="phone">
+<label>Password:</label>
+<input type="password" id="password" name="password" required>
 
-<a href="/frontend/study/success3.html" class="button">ยืนยันสมัครเรียน</a>
 
+<button type="submit" class="btn--register">ยืนยันสมัครเรียน</button>
 </form>
+<script src="register2.js"></script>
 
 </body>
 </html>

@@ -50,7 +50,7 @@ input:focus{
 }
 
 /* ปุ่มสมัคร */
-.button{
+.btn--register{
     display:block;
     width:100%;
     padding:12px;
