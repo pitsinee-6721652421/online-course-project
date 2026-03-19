@@ -39,6 +39,7 @@ const VALIDATE_USER = (username, password) => {
     }
     return error;
 }
+
 app.post('/register', async (req, res) => {
     const { email, password } = req.body;  // รับข้อมูลจาก ผู้ใช้
     const errors = VALIDATE_USER(email, password);
@@ -50,12 +51,12 @@ app.post('/register', async (req, res) => {
         message: "Register success"
     });
 });
-
+//post login
 app.post("/login", async (req,res)=>{
-    const { username, password } = req.body;
+    const { email, password } = req.body;
     const [rows] = await conn.query(
         "SELECT * FROM user WHERE email=? AND password=?",
-        [username, password]
+        [email, password]
     );
     if(rows.length > 0){
         res.json({ message:"Login success" });
@@ -64,12 +65,13 @@ app.post("/login", async (req,res)=>{
     }
 
 });
+//post เช็คว่ามีผู้ใช้ในระบบมั้ย
 app.post('/check-user', async (req, res) => {
     try {
         const { email, password } = req.body;
 
         const [results] = await conn.query(
-            'SELECT * FROM users WHERE email = ? AND password = ?',
+            'SELECT * FROM `user` WHERE email = ? AND password = ?',
             [email, password]
         );
 
@@ -80,35 +82,60 @@ app.post('/check-user', async (req, res) => {
         }
 
     } catch (error) {
-        console.error(error);
+        console.error("CHECK USER ERROR:", error);
         res.status(500).json({
             message: "Server error"
         });
     }
 });
 
+app.post('/user', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        const [results] = await conn.query(
+            'INSERT INTO `user` (email, password) VALUES (?, ?)',
+            [email, password]
+        );
+
+        res.json({
+            message: 'User created successfully',
+            id: results.insertId
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: 'Error creating user',
+            error: error.message
+        });
+    }
+});
+
 
 // DELETE
-app.delete('/users/:id', async (req, res) => {
+app.delete('/user/:id', async (req, res) => {
     try {
         let id = req.params.id;
+
         const [results] = await conn.query(
-            'DELETE FROM users WHERE id = ?',
+            'DELETE FROM user WHERE id = ?',
             [id]
         );
+
         if (results.affectedRows === 0) {
             return res.status(404).json({
                 message: 'User not found'
             });
         }
+
         res.json({
             message: 'User deleted successfully'
         });
-    } catch (error) {
-        console.error('Error deleting user:', error.message);
 
-        let statusCode = error.statusCode || 500;
-        res.status(statusCode).json({
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
             message: 'Error deleting user',
             error: error.message
         });
