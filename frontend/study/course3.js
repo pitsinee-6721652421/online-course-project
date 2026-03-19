@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 let progress = 0;
 
 function finishLesson(){
@@ -13,48 +12,30 @@ alert("คุณเรียนจบบทนี้แล้ว!");
 
 function checkQuiz(){
 
-let answer = document.querySelector('input[name="q1"]:checked');
+let q1 = document.querySelector('input[name="q1"]:checked');
+let q2 = document.querySelector('input[name="q2"]:checked');
 
-if(!answer){
-alert("กรุณาเลือกคำตอบ");
+if(!q1 || !q2){
+alert("กรุณาตอบให้ครบทุกข้อ");
 return;
 }
 
-if(answer.value === "b"){
-document.getElementById("result").innerHTML = "✅ ถูกต้อง! <br>จบบทเรียนแล้ว!👍🎉";
+let score = 0;
 
+if(q1.value === "c"){
+score++;
+}
+
+if(q2.value === "a"){
+score++;
+}
+
+if(score === 2){
+    document.getElementById("result").innerHTML =
+    "✅ ได้ " + score + " / 2 <br>🎉 จบบทเรียนแล้ว!";
 }else{
-document.getElementById("result").innerHTML = "❌ ตอบผิด";
+    document.getElementById("result").innerHTML =
+    "❌ ได้ " + score + " / 2 <br>ลองอีกครั้ง!";
 }
 
-=======
-let progress = 0;
-
-function finishLesson(){
-
-progress = 100;
-
-document.getElementById("progress").style.width = progress + "%";
-
-alert("คุณเรียนจบบทนี้แล้ว!");
-}
-
-
-function checkQuiz(){
-
-let answer = document.querySelector('input[name="q1"]:checked');
-
-if(!answer){
-alert("กรุณาเลือกคำตอบ");
-return;
-}
-
-if(answer.value === "b"){
-document.getElementById("result").innerHTML = "✅ ถูกต้อง! <br>จบบทเรียนแล้ว!👍🎉";
-
-}else{
-document.getElementById("result").innerHTML = "❌ ตอบผิด";
-}
-
->>>>>>> aa5fd75da2694c83ebbb6fd50f678f78af025f34
 }
