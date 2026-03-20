@@ -22,16 +22,17 @@ const initDBConnection = async () => {
         database: 'weddb',
         port: 3307
     });
+    console.log("DB connected ");
 }
-// ================= GET USERS =================
-app.get('/users', async (req, res) => {
-    const results = await conn.query('SELECT * FROM user');
-    res.json(results[0]);
+//get
+app.get('/users', async (req, res) => {  // API ดึงข้อมูล user ทั้งหมด
+    const results = await conn.query('SELECT * FROM user');   // ดึงข้อมูลจากตาราง user
+    res.json(results[0]); // ส่งข้อมูลกลับเป็น JSON
 });
 
-const VALIDATE_USER = (username, password) => {
+const VALIDATE_USER = (username, password) => {  // ตรวจสอบข้อมูลที่ผู้ใช้กรอกมา ว่ามีค่าไหม ถ้าไม่มีจะเก็บ error ไว้ใน array แล้วส่งกลับไป
     let error =[];
-    if (!username ) {
+    if (!username ) {  
         error.push("กรุณากรอกอีเมล");
     }
     if (!password ) {
@@ -39,6 +40,7 @@ const VALIDATE_USER = (username, password) => {
     }
     return error;
 }
+
 
 app.post('/register', async (req, res) => {
     const { email, password } = req.body;  // รับข้อมูลจาก ผู้ใช้
@@ -110,8 +112,36 @@ app.post('/user', async (req, res) => {
             error: error.message
         });
     }
-});
+})
 
+
+//Put  แก้ไขข้อมูล user โดยใช้ id เป็นตัวระบุ
+app.put('/user/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const { email, password } = req.body;
+
+        const [results] = await conn.query(
+            'UPDATE user SET email = ?, password = ? WHERE id = ?',
+            [email, password, id]
+        );
+
+        if (results.affectedRows === 0) {
+            return res.status(404).json({
+                message: 'User not found'
+            });
+        }
+        res.json({
+            message: 'User updated successfully'
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: 'Error updating user',
+            error: error.message
+        });
+    }
+});
 
 // DELETE
 app.delete('/user/:id', async (req, res) => {
